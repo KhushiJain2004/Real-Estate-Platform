@@ -1,0 +1,145 @@
+.property
+{
+    display:flex;
+    flex-direction: column;
+    margin-top:40px;
+}
+
+.user-info img
+{
+    width:50px;
+    height:50px;
+    border-radius: 50%;
+}
+
+.info .top{
+    display: flex;
+    justify-content: space-between;
+}
+.singlepost
+{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+.singlepost h1{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.address
+{
+    display: flex;
+    gap: 5px;
+    color:#888;
+    align-items: center ;
+}
+.user-info
+{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    background-color: aliceblue;
+    padding: 40px;
+    margin-right: 0;
+    border-radius:  5px;
+}
+.user-info h2{
+    margin-top: 0;
+    justify-self: flex-start;
+    font-weight: bold;
+}
+.user-info .userbox{
+    display: flex;
+    gap:30px;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+.user-info .inf{
+    display: flex;
+    flex-direction: column;
+    gap:15px
+}
+
+.wrapper
+{
+    padding-right:0;
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+.info{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    /* padding-bottom: 25px; */
+    /* font-size: 20px; */
+    
+}
+hr{
+    color: #ddd;
+}
+
+.main-features
+{
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+.feature
+{
+    display:flex;
+    flex-direction: column;
+    gap:20px;
+    justify-content: center;
+    align-items: center;
+}
+.featureText
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 18px;
+}
+.feature img
+{
+    width:150px;
+    height:150px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.general 
+{
+    display:flex;
+    justify-content: space-between;
+   
+}
+.sizes
+{
+    /* border-top:1px solid #ddd;
+    padding-top:20px; */
+    display:flex;
+    justify-content: space-between;
+    padding-top:20px;
+}
+.text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 18px;
+    /* gap:10px */
+}
+.bold
+{
+    font-weight: bold;
+}
+
+/* .bottom
+{
+    font-size: 20px;;
+} */
+
+/* .info h1{
+    font-size:35px;
+} */
