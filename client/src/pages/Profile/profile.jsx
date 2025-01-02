@@ -9,7 +9,8 @@ export default function Profile()
 {
     const {currentUser,update}=useContext(AuthContext);
     const [isWindowOpen,setWindowOpen]=useState(false);
-    const posts=useLoaderData();
+    const {posts,chats}=useLoaderData();
+    console.log(chats);
     const navigate=useNavigate();
 
     const handleLogout=async()=>
@@ -80,23 +81,23 @@ export default function Profile()
           <div className="chatContainer">
             <h2>Messages</h2>
             <div className="chats">
-              <div className="sender" onClick={openWindow}>
-                <div className="senderdetails">
-                  <img src="./noavatar.png" alt="" className='senderIcon' />
-                  <div> user</div>
-                </div>
-                <span className='lastmsg'>fnkewn</span>
-                <div className="unreadCount">3</div>
-              </div>
-              <div className="sender">
-                <img src="./noavatar.png" alt="" className='senderIcon' />
-                <span className='lastmsg'>dnjwbf</span>
-              </div>
-              <div className="sender">
-                <img src="./noavatar.png" alt="" className='senderIcon' />
-                <span className='lastmsg'>fnken</span>
-              </div>
-            </div>
+              {
+                chats.map((chat)=>
+                {
+                  return(
+                    <div className="sender"  key={chat._id} onClick={openWindow}>
+                    <div className="senderdetails">
+                      <img src={chat.receiver.avatar || './noavatar.png'} alt="" className='senderIcon' />
+                      <div> {chat.receiver.name}</div>
+                    </div>
+                    <span className={`lastmsg ${chat.unreadCount!=0 ? "red" :"blue"}`}>{chat.lastMessage}</span>
+                    {chat.unreadCount!=0 && <div className="unreadCount">{chat.unreadCount}</div>}
+                  </div>
+                  )
+                })
+              }
+            
+          </div>
             {isWindowOpen && 
             <div className="personalWindow" id="personalWindow">
             <div className="senderInfo">

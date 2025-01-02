@@ -7,7 +7,8 @@ const schema=mongoose.Schema(
         password:{type:String,required:true},
         avatar :{type:String},
         createdAt:{type:Date , default:Date.now()},
-        posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'posts' }]
+        posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'posts' }],
+        chats:[{type:mongoose.Schema.Types.ObjectId,ref:'chats'}]
     }
 );
 

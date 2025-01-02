@@ -28,7 +28,11 @@ export const profileListLoader=async ({request,params})=>
   {
 
     const res=await apiRequest('/user/post');
+    const chatResponse=await apiRequest('/chats')
     // console.log(res.data);
-    return res.data.posts;
+    return {
+      posts:res.data.posts,
+      chats:chatResponse.data.updatedChats,
+    };
   
   }

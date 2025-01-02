@@ -2,6 +2,8 @@ import express from 'express'
 import authRouter from  './routes/authRoutes.js'
 import userRouter from './routes/userRoutes.js'
 import postRouter from './routes/postRoutes.js'
+import chatsRouter from './routes/chatRoutes.js'
+import messageRouter from './routes/msgRoutes.js'
 import 'dotenv/config'
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
@@ -16,6 +18,8 @@ app.use(cors({origin: "http://localhost:5173", credentials:true}));
 app.use('/api/auth',authRouter);
 app.use('/api/user',userRouter);
 app.use('/api/posts',postRouter);
+app.use('/api/chats',chatsRouter);
+app.use('/api/msg',messageRouter);
 
 const url=process.env.URL;
 mongoose.connect(url)

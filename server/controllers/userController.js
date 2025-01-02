@@ -2,6 +2,16 @@ import userModel from "../models/userModels.js";
 import postModel from "../models/postModel.js";
 import bcrypt from 'bcrypt';
 
+export const getAllUsers=async(req,res)=>
+{
+    try {
+        const users=await userModel.find();
+        res.json({success:true,users});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message:'failed to get users'});
+    }
+}
 export const getUser=async (req,res)=>
 {
     const id=req.params.userId;
