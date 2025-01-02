@@ -17,7 +17,7 @@ app.use('/api/auth',authRouter);
 app.use('/api/user',userRouter);
 app.use('/api/posts',postRouter);
 
-const url='mongodb+srv://kj866795:LLCRlbvOJCFXkJjd@cluster0.hah8tdn.mongodb.net/estate_app?retryWrites=true&w=majority&appName=Cluster0';
+const url=process.env.URL;
 mongoose.connect(url)
 .then(console.log('connected'))
 .catch(error=>console.log(error.message));

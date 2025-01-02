@@ -37,9 +37,9 @@ export default function Navbar()
           </div>
           <div className={open ? "menu active" : "menu"}>
             <Link to="/">Home</Link>
-            <a href="/">About</a>
-            <a href="/">Contact</a>
-            <a href="/">Agents</a>
+            <Link href="/">About</Link>
+            <Link href="/">Contact</Link>
+            <Link href="/">Agents</Link>
             {currentUser?
             <Link to="/profile" onClick={() => setOpen((prev) => !prev)} >
             Profile
@@ -49,16 +49,16 @@ export default function Navbar()
             )
             }
           </div>
-        <a href="/" className="logo">
+        <Link to="/" className="logo">
           {/* <img src="/logo.png" alt="" /> */}
           <span>HomeScape</span>
-        </a>
+        </Link>
       </div>
       <div className="center">
-        <a href="/">Home</a>
-        <a href="/">About</a>
-        <a href="/">Contact</a>
-        <a href="/">Agents</a>
+        <Link to="/">Home</Link>
+        <Link to="/">About</Link>
+        <Link to="/">Contact</Link>
+        <Link to="/">Agents</Link>
       </div>
       <div className="right">
         {currentUser ? (
@@ -72,10 +72,10 @@ export default function Navbar()
           </Link>
         ) : (
           <>
-            <a href="/login">Sign in</a>
-            <a href="/register" className="register">
+            <Link to="/login">Sign in</Link>
+            <Link to="/register" className="register">
               Sign up
-            </a>
+            </Link>
           </>
         )}
       </div>

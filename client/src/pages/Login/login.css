@@ -43,9 +43,9 @@ span{
 }
 
 a{
-    font-size: 14px;
+    font-size: 21px;
     color: gray;
-    border-bottom: 1px solid gray;
+    /* border-bottom: 1px solid gray; */
     width: max-content;
 }
 .imgContainer {

@@ -12,13 +12,13 @@ export const AuthContextProvider= ({children})=>
     //     if(res.data.message==="token expired") return null;
     //     return res.data.user;
     // }
-    // const [currentUser, setCurrentUser] = useState(()=>{
-    //   // const user = localStorage.getItem('user');
-    //   const user = fetch();
-    //   return user ? JSON.parse(user) : null;
-    // });
 
-    const [currentUser, setCurrentUser] = useState(null);
+
+    const [currentUser, setCurrentUser] = useState(()=>{
+      const user = localStorage.getItem('user');
+      return user ? JSON.parse(user) : null;
+    });
+
 
     const update=(data)=>
     {

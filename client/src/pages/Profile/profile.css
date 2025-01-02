@@ -1,103 +1,253 @@
 
 
-  .avatar-icon
-  {
-    height:60px;
-    width: 60px;
-    object-fit: cover;
-  }
-
-
 .profilePage {
   display: flex;
+  gap:20px; 
+  position:relative;
+  height: 85vh;
+}
+.profilePage .postContainer
+{
+  flex:1;
   height: 100%;
-
-  @include md{
-    flex-direction: column;
-    overflow: scroll;
-  }
-
-  .details {
-    flex: 3;
-    overflow-y: scroll;
-    padding-bottom: 50px;
-
-    @include md{
-      flex:none;
-      height: max-content;
-    }
-
-    .wrapper{
-      padding-right: 50px;
-      display: flex;
-      flex-direction: column;
-      gap: 50px;
-
-      .title{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        h1{
-          font-weight: 10px;
-        }
-
-        button{
-          padding: 12px 24px;
-          background-color: #fece51;
-          cursor: pointer;
-          border: none;
-        }
-      }
-
-      .info{
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-
-        span{
-          display: flex;
-          align-items: center;
-          gap: 20px;
-        }
-
-        button{
-          width: 100px;
-          background-color: teal;
-          border: none;
-          color: white;
-          padding: 10px 20px;
-          cursor: pointer;
-          border-radius: 5px;
-        }
-
-        img{
-          width: 80px;
-          height: 80px;
-          border-radius: 50%;
-          object-fit: cover;
-        }
-      }
-    }
-  }
-  .chatContainer {
-    flex: 2;
-    background-color: #fcf5f3;
-    height: 100%;
-
-    @include md{
-      flex:none;
-      height: max-content;
-    }
-
-    .wrapper{
-      padding: 0px 20px;
-      height: 100%;
-    }
-  }
+  width:70% ;
+  overflow-y:auto;
+  scroll-behavior: smooth;
+}
+.postContainer::-webkit-scrollbar
+{
+  display:none;
+}
+.profilePage .heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+  padding: 0 15px ;
+  box-sizing: border-box;
 }
 
-.user-tittle
+.profilePage .heading h1 {
+  font-weight: 10px;
+}
+
+.profilePage .details {
+  
+  height: 100%;
+  width:30%;
+  /* padding-bottom: 50px; */
+  display: flex;
+  flex-direction: column;
+  /* gap:20px ; */
+  overflow-y: auto;
+
+  scroll-behavior: smooth;
+}
+.details::-webkit-scrollbar
 {
-  font-size: 30px;
+  display: none;
+}
+
+.profilePage .details .wrapper {
+  padding-right: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.profilePage .details .wrapper button {
+  padding: 12px 24px;
+  background-color: #fece51;
+  cursor: pointer;
+  border: none;
+}
+.profilePage .userInfo {
+  display: flex;
+  justify-content:space-between ;
+  gap: 20px;
+  background-color: aliceblue;
+  padding:35px;
+  border-radius: 20px;
+  box-shadow: 4px 3px 4px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+}
+.user-button
+{
+  width:100%;
+}
+
+
+.profilePage .userInfo span {
+  display: flex;
+  align-items: center;
+  /* gap: 20px; */
+  color: #2a2a2a;
+  font-size: 18px;
+  
+}
+.userInfo .user-details
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.profilePage .userInfo button {
+  background-color: teal;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.userInfo .avatar
+{
+  width:46%;
+  /* height:46%; */
+}
+
+.profilePage .userInfo img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profilePage .chatContainer {
+  /* flex: 2; */
+  background-color: #fcf5f3;
+  height: 100%;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.2) ;
+  margin-top: 20px;
+  position: relative;
+  min-height: 600px; 
+  margin-bottom: 40px; 
+}
+
+.profilePage .chatContainer .wrapper {
+  padding: 0px 20px;
+ 
+}
+
+.user-tittle {
+  font-size: 25px;
+}
+
+.chatContainer h2
+{
+
+  margin: 0 0 20px 0;
+  font-weight: bold;
+}
+.chatContainer .chats
+{
+  display: flex;
+  flex-direction: column;
+  gap:20px;
+  cursor: pointer;
+}
+.chats .sender
+{
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  gap:20px;
+  padding: 15px 25px;
+  font-size: 18px;
+  color:black;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+.chats .sender .senderIcon{
+  width:30px;
+  height:30px;
+}
+.unreadCount
+{
+  width:20px;
+  height: 20px;
+  border-radius: 50%;
+  padding: 2px;
+  text-align: center;
+  color:white;
+  background-color: teal;
+  position: absolute;
+  top:-10px;
+  right:-10px;
+}
+.senderdetails
+{
+  display:flex;
+  gap:12px;
+  align-items: center;
+}
+.personalWindow
+{
+  position: absolute;
+  bottom: 0;
+  right:0;
+  left:0;
+  height:450px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border-top-left-radius: 20px;
+}
+
+.senderInfo
+{
+  display: flex;
+  background-color: #f8cfc4;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px  solid aliceblue; */
+  font-size: 18px;
+  color:black
+  
+}
+.senderInfo .senderIcon
+{
+  width:50px;
+  height:50px;
+}
+.senderInfo .close
+{
+  width:20px;
+  height:20px;
+  background-color: teal;
+  color:white;
+  padding: 4px;;
+  text-align: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.msgBox
+{
+  position: absolute;
+  width: 100%;
+  bottom: 0;;
+  display: flex;
+  align-items: center;
+  /* height:15px; */
+  /* gap:20px; */
+}
+.msgBox .send
+{
+  background-color: rgb(247, 201, 115);
+  width:20%;
+  padding:15px ;
+  margin: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.msgBox .box{
+  width:80%;
+  margin: 0;
+}
+.msgBox input{
+  height: 6px;
 }

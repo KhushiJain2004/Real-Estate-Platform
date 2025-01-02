@@ -10,7 +10,9 @@ export default function Slider({images})
             </div>
             <div className="small">
                 {images.slice(1).map((img,index)=>
-                    <img src={img} alt=""  key={index}/>
+                    <div className="smallImg" key={index}>
+                        <img src={img} alt=""  />
+                    </div>
                 )}
         </div></div>
     )

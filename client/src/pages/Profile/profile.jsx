@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import './profile.css'
 import { Link,useLoaderData,useNavigate} from 'react-router-dom';
 import { AuthContext } from '../../context/authContext';
@@ -8,6 +8,7 @@ import Card from '../../components/Card/Card';
 export default function Profile()
 {
     const {currentUser,update}=useContext(AuthContext);
+    const [isWindowOpen,setWindowOpen]=useState(false);
     const posts=useLoaderData();
     const navigate=useNavigate();
 
@@ -24,60 +25,95 @@ export default function Profile()
         }
 
     }
+    const closeChatBox=()=>
+    {
+      setWindowOpen(false);
+      // document.getElementById("personalWindow").style.display="none"
+    }
+    const openWindow=()=>
+    {
+      setWindowOpen(true);
+      // document.getElementById("personalWindow").style.display="block"
+    }
     return (
         <div className="profilePage">
-          <div className="details">
-            <div className="wrapper">
-              <div className="title">
-                <h1 className='user-tittle'>User Information</h1>
-                <Link to="/profile/update">
-                  <button>Update Profile</button>
-                </Link>
-              </div>
-              <div className="info">
-                <span>
-                  Avatar:
-                  <img src={currentUser.avatar || "noavatar.png"} alt=""  className='avatar-icon'/>
-                </span>
-                <span>
-                  Username: <b>{currentUser.name}</b>
-                </span>
-                <span>
-                  E-mail: <b>{currentUser.email}</b>
-                </span>
-                <button onClick={handleLogout}>Logout</button>
-              </div>
-              <div className="title">
-                <h1 className='user-tittle'>My List</h1>
+          <div className="postContainer">
+              <div className="heading">
+                <h1 className='user-tittle'>My Listings</h1>
                 <Link to="/profile/addPost">
-                  <button>Create New Post</button>
+                  <div><i className="fa fa-plus-circle" aria-hidden="true"></i></div>
                 </Link>
               </div>
-              <div className="postContainer">
                 {posts.map(post=>(
                   <Card key={post._id} item={post}/>
                 ))}
               </div>
-              {/* <Suspense fallback={<p>Loading...</p>}>
-                <Await
-                  resolve={data.postResponse}
-                  errorElement={<p>Error loading posts!</p>}
-                >
-                  {(postResponse) => <List posts={postResponse.data.userPosts} />}
-                </Await>
-              </Suspense> */}
-              {/* {/* <div className="title">
-                <h1>Saved List</h1>
+          <div className="details">
+              <div className="heading">
+                <h1 className='user-tittle'>User Details</h1>
+                <Link to="/profile/update">
+                  <div><i className="fa fa-pencil" ></i></div>
+                </Link>
               </div>
-              <Suspense fallback={<p>Loading...</p>}>
-                <Await
-                  resolve={data.postResponse}
-                  errorElement={<p>Error loading posts!</p>}
-                >
-                  {(postResponse) => <List posts={postResponse.data.savedPosts} />}
-                </Await>
-              </Suspense> */}
+              <div className="userInfo">
+                <div className="avatar">
+                    <img src={currentUser.avatar || "noavatar.png"} alt=""  className='avatar-icon'/>
+                </div>
+                <div className="user-details">
+                  <div className="userDetailField">
+                    <span>
+                      <b>{currentUser.name}</b>
+                    </span>
+                  </div>
+                  <div className="userDetailField">
+                    <span>
+                       <b>{currentUser.email}</b>
+                    </span>
+                  </div>
+                <button onClick={handleLogout} className='user-button'>Logout</button>
+                  
+                </div>
+
+              </div>
+              
+            
+          <div className="chatContainer">
+            <h2>Messages</h2>
+            <div className="chats">
+              <div className="sender" onClick={openWindow}>
+                <div className="senderdetails">
+                  <img src="./noavatar.png" alt="" className='senderIcon' />
+                  <div> user</div>
+                </div>
+                <span className='lastmsg'>fnkewn</span>
+                <div className="unreadCount">3</div>
+              </div>
+              <div className="sender">
+                <img src="./noavatar.png" alt="" className='senderIcon' />
+                <span className='lastmsg'>dnjwbf</span>
+              </div>
+              <div className="sender">
+                <img src="./noavatar.png" alt="" className='senderIcon' />
+                <span className='lastmsg'>fnken</span>
+              </div>
             </div>
+            {isWindowOpen && 
+            <div className="personalWindow" id="personalWindow">
+            <div className="senderInfo">
+              <img src="./noavatar.png" alt="" className='senderIcon' />
+              <div className='name'>Sender</div>
+              <div className='close' onClick={closeChatBox}>x</div>
+            </div>
+            <div className="chatsBySender">
+              <div className="msgBox">
+                <div className="box">
+                  <input type="text" placeholder='Enter msg' />
+                </div>
+                <div className="send">Send</div>
+              </div>
+            </div>
+          </div>  }
+          </div>
           </div>
           {/* <div className="chatContainer">
             <div className="wrapper">
