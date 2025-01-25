@@ -14,7 +14,8 @@ export const verifyToken= (req,res,next)=>
         // if (err.name === 'TokenExpiredError') {
         //     return res.status(401).json({ message: 'Token expired' });
         // }
-        if(err) return res.json({message:"Token not valid"});
+        if(err) return res.status(401).json({success:"false",message:"Token not valid, login again"});
+        // console.log(payload.id)
         req.userId=payload.id;
         next();
     })

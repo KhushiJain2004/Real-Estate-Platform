@@ -14,10 +14,11 @@ export const getAllUsers=async(req,res)=>
 }
 export const getUser=async (req,res)=>
 {
-    const id=req.params.userId;
+    const id=req.userId;
+    // console.log(id);
     try {
-        const user = await userModel.findOne({id});
-        res.json({success:true,user});
+        const user = await userModel.findOne({_id:id}).select('-password');
+        res.status(200).json({success:true,user});
     } catch (error) {
         console.log(error);
         res.status(500).json({message:'failed to get user'});
@@ -28,12 +29,12 @@ export const getUserPost=async (req,res)=>
         const id=req.userId;
         // console.log(id);
         try {
-            const user=await userModel.findOne({id});
+            const user=await userModel.findOne({_id:id}).select('-password');
             const posts = await postModel.find({authorId:id})
             .populate('postDetail')
             .populate('authorId', 'name avatar email')
             .exec();
-            res.json({success:true,user,posts});
+            res.status(200).json({success:true,user,posts});
         } catch (error) {
             console.log(error);
             res.status(500).json({message:'failed to get userPosts'});

@@ -28,7 +28,7 @@ export const sendMsg=async(req,res)=>
         const savedChat=await chat.save();
         // console.log(chat);
 
-        res.json({success:true,savedChat});
+        res.json({success:true,msg:savedMsg});
     } catch (error) {
         console.log(error);
         res.status(500).json({success:false,message:error.message});

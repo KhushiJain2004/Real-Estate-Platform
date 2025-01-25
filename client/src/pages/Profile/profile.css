@@ -123,6 +123,7 @@
   position: relative;
   min-height: 600px; 
   margin-bottom: 40px; 
+  /* z-index:-1 */
 }
 
 .profilePage .chatContainer .wrapper {
@@ -160,6 +161,12 @@
   background-color: white;
   border-radius: 15px;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  cursor:pointer;
+  word-wrap: break-word
+}
+.lastmsg
+{
+  overflow-x: hidden;
 }
 .chats .sender .senderIcon{
   width:38px;
@@ -202,11 +209,22 @@
   background-color: white;
   display: flex;
   flex-direction: column;
-  border-top-left-radius: 20px;
+  /* border-top-left-radius: 20px; */
+  border:2px solid #e2e2e2;
+  overflow: auto;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  /* z-index:100; */
+}
+.personalWindow::-webkit-scrollbar{
+  display: none;
 }
 
-.senderInfo
+.personalWindow .senderInfo
 {
+  position: sticky;
+  top:0;
+  right:0;
+  left:0;
   display: flex;
   background-color: #f8cfc4;
   padding: 12px;
@@ -234,11 +252,13 @@
   border-radius: 50%;
   cursor: pointer;
 }
+
 .msgBox
 {
-  position: absolute;
+  position: sticky;
   width: 100%;
-  bottom: 0;;
+  bottom: 0;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   /* height:15px; */

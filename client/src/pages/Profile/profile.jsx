@@ -1,14 +1,22 @@
-import { useContext, useState } from 'react';
+import { useContext,useEffect } from 'react';
 import './profile.css'
-import { Link,useLoaderData,useNavigate} from 'react-router-dom';
+import { Link,useLoaderData,useLocation,useNavigate} from 'react-router-dom';
 import { AuthContext } from '../../context/authContext';
 import apiRequest from '../../lib/apiRequest';
 import Card from '../../components/Card/Card';
+import Chat from '../../components/ChatBox/chat';
 
 export default function Profile()
 {
-    const {currentUser,update}=useContext(AuthContext);
-    const [isWindowOpen,setWindowOpen]=useState(false);
+    const {currentUser,update,setOpenChat,setReceiver}=useContext(AuthContext);
+    const location=useLocation();
+    
+    useEffect(()=>
+    {
+      setOpenChat(location.state?.chat || null);
+      setReceiver(location.state?.receiver || null);
+    },[location.state, setOpenChat, setReceiver])
+
     const {posts,chats}=useLoaderData();
     console.log(chats);
     const navigate=useNavigate();
@@ -26,16 +34,7 @@ export default function Profile()
         }
 
     }
-    const closeChatBox=()=>
-    {
-      setWindowOpen(false);
-      // document.getElementById("personalWindow").style.display="none"
-    }
-    const openWindow=()=>
-    {
-      setWindowOpen(true);
-      // document.getElementById("personalWindow").style.display="block"
-    }
+    
     return (
         <div className="profilePage">
           <div className="postContainer">
@@ -80,40 +79,7 @@ export default function Profile()
             
           <div className="chatContainer">
             <h2>Messages</h2>
-            <div className="chats">
-              {
-                chats.map((chat)=>
-                {
-                  return(
-                    <div className="sender"  key={chat._id} onClick={openWindow}>
-                    <div className="senderdetails">
-                      <img src={chat.receiver.avatar || './noavatar.png'} alt="" className='senderIcon' />
-                      <div> {chat.receiver.name}</div>
-                    </div>
-                    <span className={`lastmsg ${chat.unreadCount!=0 ? "red" :"blue"}`}>{chat.lastMessage}</span>
-                    {chat.unreadCount!=0 && <div className="unreadCount">{chat.unreadCount}</div>}
-                  </div>
-                  )
-                })
-              }
-            
-          </div>
-            {isWindowOpen && 
-            <div className="personalWindow" id="personalWindow">
-            <div className="senderInfo">
-              <img src="./noavatar.png" alt="" className='senderIcon' />
-              <div className='name'>Sender</div>
-              <div className='close' onClick={closeChatBox}>x</div>
-            </div>
-            <div className="chatsBySender">
-              <div className="msgBox">
-                <div className="box">
-                  <input type="text" placeholder='Enter msg' />
-                </div>
-                <div className="send">Send</div>
-              </div>
-            </div>
-          </div>  }
+            <Chat />
           </div>
           </div>
           {/* <div className="chatContainer">

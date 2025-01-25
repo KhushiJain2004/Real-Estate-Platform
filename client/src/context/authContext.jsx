@@ -1,46 +1,60 @@
 /* eslint-disable react/prop-types */
-// import apiRequest from '../lib/apiRequest';
-import {createContext,useEffect,useState  } from 'react';
+import { createContext, useEffect, useState } from 'react';
+import apiRequest from '../lib/apiRequest';
 
-export const AuthContext=createContext();
+export const AuthContext = createContext();
 
-export const AuthContextProvider= ({children})=>
-{
-    // const fetch=async()=>
-    // {
-    //     const res= await apiRequest.get("/user/post");
-    //     if(res.data.message==="token expired") return null;
-    //     return res.data.user;
-    // }
+export const AuthContextProvider = ({ children }) => {
+    const [currentUser, setCurrentUser] = useState(null);
+    const [chats, setChats] = useState(null);
+    const [openChat,setOpenChat]=useState(null);
+  const [receiver,setReceiver]=useState(null);
 
+    const update = (data) => {
+        setCurrentUser(data);
+        fetchUser();
+    };
 
-    const [currentUser, setCurrentUser] = useState(()=>{
-      const user = localStorage.getItem('user');
-      return user ? JSON.parse(user) : null;
-    });
-
-
-    const update=(data)=>
+    const fetchUser = async () => {
+        try {
+            const res = await apiRequest.get('/user'); 
+            if (res.status === 200) {
+                setCurrentUser(res.data.user);
+            } else {
+                setCurrentUser(null); 
+            }
+        } catch (error) {
+            console.error('Error fetching user:', error.message);
+            setCurrentUser(null); 
+        }
+    };
+    const fetchChats=async()=>
     {
-      setCurrentUser(data);
+        try {
+            const res=await apiRequest.get('./chats');
+            console.log(res)
+            setChats(res.data.updatedChats);
+        } catch (error) {
+            console.error('Error fetching user:', error.message);
+            setChats(null); 
+        }
     }
+    useEffect(() => {
+
+        fetchUser();
+    }, []); 
     useEffect(()=>
     {
-      localStorage.setItem("user",JSON.stringify(currentUser));
-    },[currentUser,setCurrentUser]);
+        fetchChats()
+    },[currentUser])
 
-    // useEffect(() => {
-    //   const initializeUser = async () => {
-    //       const user = await fetch();
-    //       setCurrentUser(user);
-    //   }
+    // useEffect(()=>{
+    //   fetchUser();
+    // },[currentUser,setCurrentUser])
 
-    //   const user = localStorage.getItem('user');
-    //   if (user) {
-    //       setCurrentUser(JSON.parse(user));
-    //   } else {
-    //       initializeUser();
-    //   }
-    //   }, []);
-    return <AuthContext.Provider value={{currentUser,update}}>{children}</AuthContext.Provider>
-}
+    return (
+        <AuthContext.Provider value={{ currentUser, update,chats,setChats,openChat,setOpenChat,receiver,setReceiver}}>
+            {children}
+        </AuthContext.Provider>
+    );
+};

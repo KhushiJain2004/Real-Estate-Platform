@@ -1,11 +1,17 @@
 /* eslint-disable react/prop-types */
 // import ScrollToTop from '../ScrollToTop/scroll'
 import './Card.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import apiRequest from '../../lib/apiRequest'
+import { useContext } from 'react'
+import { AuthContext } from '../../context/authContext'
+import { ToastContainer, toast } from 'react-toastify'
 
 export default function Card({item})
 {
+
+  const {setChats}=useContext(AuthContext);
+  const navigate=useNavigate()
   // console.log(item)
   const save=async ()=>
   {
@@ -19,9 +25,32 @@ export default function Card({item})
       console.log(err.message);
     }
   }
+
+  const redirectToChat=async(receiverId)=>
+  {
+   try {
+    console.log(receiverId)
+    const res=await apiRequest.post("/chats/",{receiverId})
+    console.log(res.data)
+    if(res.status===502) 
+    {
+        console.log("chat exists")
+    }
+    else if(res.status===400) toast.info("Its your Post!")
+    else {
+        setChats(prev=>[...prev,res.data.chat])
+    }
+    navigate("/profile",{state:{chat:res.data.chat ,receiver:res.data.receiver}})
+   } catch (error) {
+    console.log(error.message)
+   }
+
+  }
     return (
       <>
+      {/* <ToastContainer /> */}
       <div className="card">
+       
         <Link to={`/${item._id}`} className="imageContainer">
           <img src={item.images[0]} alt="" />
         </Link>
@@ -50,7 +79,7 @@ export default function Card({item})
                 <img src="/save.png" alt="" onClick={save} />
               </div>
               <div className="icon">
-                <img src="/chat.png" alt="" />
+                <img src="/chat.png" alt="" onClick={()=>redirectToChat(item.authorId)}/>
               </div>
             </div>
           </div>

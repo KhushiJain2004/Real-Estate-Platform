@@ -70,3 +70,9 @@
 {
     margin-top: 0;
 }
+.icons{
+    cursor: pointer;
+}
+.icons :hover{
+    scale:1.1
+}

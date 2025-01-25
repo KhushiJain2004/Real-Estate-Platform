@@ -29,21 +29,23 @@ export const getAllChats=async (req,res)=>
 export const createChat=async (req,res)=>
 {
     const userId=req.userId;
-    const {recieverId}=req.body;
+    const {receiverId}=req.body;
     try {
-        if(recieverId==null || recieverId==userId) return res.status(404).json({message:"reciever id not provided or invalid"});
-        const exists=await chatModel.findOne({users:{$all :[userId,recieverId]}});
-        if(exists) return res.status(404).json({success:false,message:"chat already exists"});
+        if(userId===receiverId) return res.status(502).json({success:false, message:"cannot create chat with yourself"})
+        if(receiverId==null || receiverId==userId) return res.status(404).json({message:"receiver id not provided or invalid"});
+        const receiver=await userModel.findOne({_id:receiverId})
+        const exists=await chatModel.findOne({users:{$all :[userId,receiverId]}});
+        if(exists) return res.status(200).json({success:false,message:"chat already exists",chat:exists,receiver});
         const newChat=await chatModel.create({
-            users:[userId,recieverId],
+            users:[userId,receiverId],
         });
-        res.json({success:true,newChat});
+        res.json({success:true,chat:newChat,receiver});
     } catch (error) {
         console.log(error);
         res.status(500).json({message:error.message});
     }
 }
-export const getChat = async (req, res) => {
+export const readChat = async (req, res) => {
     const userId = req.userId;
     try {
         const chatId = req.params.chatId;
@@ -67,12 +69,27 @@ export const getChat = async (req, res) => {
 
         const savedChat = await chat.save();
 
-        res.json({ success: true, savedChat });
+        res.json({ success: true, chat:savedChat });
     } catch (error) {
         console.log(error);
         res.status(500).json({ success: false, message: error.message });
     }
 };
+
+export const findChat=async(req,res)=>
+{
+    const userId=req.userId;
+    try {
+        const {receiverId}=req.body;
+        const chat=await chatModel.findOne({users:{$all:[userId,receiverId]}});
+        if(chat==null) return res.status(404).json({message:"chat does not exist"});
+
+        return res.json({success:true,chatId:chat._id})
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: error.message });
+    }
+}
 
 export const getUser=async (req,res)=>
 {
