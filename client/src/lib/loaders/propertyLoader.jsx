@@ -20,7 +20,7 @@ export const listLoader=async ({request,params})=>
   const query=url[1];
   // console.log(query);
   const res=await apiRequest("/posts?"+query);
-  // console.log(res);
+  console.log(res.data);
   return res.data;
 
 }

@@ -31,6 +31,7 @@ export const AuthContextProvider = ({ children }) => {
     const fetchChats=async()=>
     {
         try {
+            if (!currentUser) return;
             const res=await apiRequest.get('./chats');
             console.log(res)
             setChats(res.data.updatedChats);
@@ -46,6 +47,8 @@ export const AuthContextProvider = ({ children }) => {
     useEffect(()=>
     {
         fetchChats()
+        setOpenChat(null)
+        setReceiver(null)
     },[currentUser])
 
     // useEffect(()=>{

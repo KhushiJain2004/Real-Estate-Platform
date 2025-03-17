@@ -28,7 +28,7 @@ export const getAllPosts=async (req,res)=>
     }
   
     try {
-      const posts = await postModel.find(query);
+      const posts = await postModel.find(query).populate('authorId','name email');
       res.status(200).json(posts);
   } catch (error) {
     console.log(error.message);

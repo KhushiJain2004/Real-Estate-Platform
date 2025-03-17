@@ -227,13 +227,15 @@
   left:0;
   display: flex;
   background-color: #f8cfc4;
-  padding: 12px;
+  padding: 0 12px ;
   display: flex;
   justify-content: space-between;
   align-items: center;
   /* border: 1px  solid aliceblue; */
   font-size: 18px;
-  color:black
+  color:black;
+  height:15%;
+  box-sizing: border-box;
   
 }
 .senderInfo .senderIcon

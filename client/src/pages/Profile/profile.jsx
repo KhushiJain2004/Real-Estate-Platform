@@ -1,6 +1,6 @@
-import { useContext,useEffect } from 'react';
+import { useContext } from 'react';
 import './profile.css'
-import { Link,useLoaderData,useLocation,useNavigate} from 'react-router-dom';
+import { Link,useLoaderData,useNavigate} from 'react-router-dom';
 import { AuthContext } from '../../context/authContext';
 import apiRequest from '../../lib/apiRequest';
 import Card from '../../components/Card/Card';
@@ -8,14 +8,8 @@ import Chat from '../../components/ChatBox/chat';
 
 export default function Profile()
 {
-    const {currentUser,update,setOpenChat,setReceiver}=useContext(AuthContext);
-    const location=useLocation();
-    
-    useEffect(()=>
-    {
-      setOpenChat(location.state?.chat || null);
-      setReceiver(location.state?.receiver || null);
-    },[location.state, setOpenChat, setReceiver])
+    const {currentUser,update}=useContext(AuthContext);
+   
 
     const {posts,chats}=useLoaderData();
     console.log(chats);

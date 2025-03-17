@@ -5,29 +5,31 @@ import { Link, useNavigate } from 'react-router-dom'
 import apiRequest from '../../lib/apiRequest'
 import { useContext } from 'react'
 import { AuthContext } from '../../context/authContext'
-import { ToastContainer, toast } from 'react-toastify'
+// import { ToastContainer, toast } from 'react-toastify'
 
 export default function Card({item})
 {
 
-  const {setChats}=useContext(AuthContext);
+  const {chats,setOpenChat,setReceiver}=useContext(AuthContext);
   const navigate=useNavigate()
   // console.log(item)
   const save=async ()=>
   {
-    try{
-      console.log(item._id);
-      const res=await apiRequest("/posts/save/"+item._id);
-      console.log(res);
-    }
-    catch(err)
-    {
-      console.log(err.message);
-    }
+    console.log(chats)
+    // try{
+    //   console.log(item._id);
+    //   const res=await apiRequest("/posts/save/"+item._id);
+    //   console.log(res);
+    // }
+    // catch(err)
+    // {
+    //   console.log(err.message);
+    // }
   }
 
   const redirectToChat=async(receiverId)=>
   {
+    
    try {
     console.log(receiverId)
     const res=await apiRequest.post("/chats/",{receiverId})
@@ -36,11 +38,19 @@ export default function Card({item})
     {
         console.log("chat exists")
     }
-    else if(res.status===400) toast.info("Its your Post!")
+    // else if(res.status===400) toast.info("Its your Post!")
     else {
-        setChats(prev=>[...prev,res.data.chat])
+        // setChats(prev=>[...prev,res.data.chat])
     }
-    navigate("/profile",{state:{chat:res.data.chat ,receiver:res.data.receiver}})
+
+    if(res.status!=400)
+    {
+
+      setOpenChat(res.data.chat)
+      setReceiver(res.data.receiver)
+    }
+
+    navigate("/profile")
    } catch (error) {
     console.log(error.message)
    }
@@ -58,6 +68,7 @@ export default function Card({item})
           <h2 className="tittle">
             <Link to={`/${item._id}`}><h1>{item.tittle}</h1></Link>
           </h2>
+          <h3 className='authorDetails'>Listed By: {item.authorId.name} <span className='emailOfAuthor'>({item.authorId.email})</span></h3>
           <p className="address">
             {/* <img src="/pin.png" alt="" /> */}
             <span>{item.address}</span>

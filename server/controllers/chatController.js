@@ -34,7 +34,7 @@ export const createChat=async (req,res)=>
         if(userId===receiverId) return res.status(502).json({success:false, message:"cannot create chat with yourself"})
         if(receiverId==null || receiverId==userId) return res.status(404).json({message:"receiver id not provided or invalid"});
         const receiver=await userModel.findOne({_id:receiverId})
-        const exists=await chatModel.findOne({users:{$all :[userId,receiverId]}});
+        const exists=await chatModel.findOne({users:{$all :[userId,receiverId]}}).populate('messages');
         if(exists) return res.status(200).json({success:false,message:"chat already exists",chat:exists,receiver});
         const newChat=await chatModel.create({
             users:[userId,receiverId],
